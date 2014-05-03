@@ -3,8 +3,8 @@ var csv = require('csv');
 
 const FIRST_ROUND_LINES = 5;
 
-function run(second_round) {
-    console.log(second_round ? "===Start Second Round===" : "===Start First Round===");
+function run(is_second_round) {
+    console.log(is_second_round ? "===Start Second Round===" : "===Start First Round===");
 
     var csv_stream = fs.createReadStream('test.csv');
     
@@ -13,7 +13,7 @@ function run(second_round) {
         parser
         .transform(function(record, index, callback){
             process.nextTick(function(){
-                if(second_round) {
+                if(is_second_round) {
                     //Read whole file
                     console.log(record);
                     callback(); 
@@ -34,7 +34,7 @@ function run(second_round) {
             console.log("End with " + count + " records.");
 
             //Start second round
-            if(!second_round){
+            if(!is_second_round){
                 run(true);
             }
         })
